@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"></script>
+    <!-- vue.js -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<body>
+    <div id="app">
+        <div class="d-flex align-items-start">
+            <div class="nav flex-column nav-pills me-3">
+                <button class="nav-link active" type="button" role="tab">Home</button>
+                <button class="nav-link" type="button" role="tab">Profile</button>
+                <button class="nav-link" type="button" role="tab">Messages</button>
+                <button class="nav-link" type="button" role="tab">Settings</button>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" role="tabpanel">
+                    <div v-for = "(item, index) in database" :key = "index">
+                        <div class="card" style="width: 18rem;">
+                            <img src="..." class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ item.location }}</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                                    of the card's content.</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.esm-browser.min.js';
+
+        const app = Vue.createApp({
+            data() {
+                return {
+                    message: 'Hello Vue!',
+                    database: [],
+                }
+            },
+            methods: {
+                getWeather() {
+                    axios.get('https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWB-85A5F069-8332-4B55-90DF-A3EEEFAC3A29')
+                    .then((res) => {
+                        this.database = res.push(...data);
+                        console.log(this.database);
+                    })
+                }
+            },
+            mounted() {
+                this.getWeather();
+            }
+        })
+
+        app.mount('#app')
+    </script>
+</body>
+
+</html>
